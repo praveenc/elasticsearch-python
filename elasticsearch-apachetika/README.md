@@ -45,5 +45,5 @@ Note: ![Alert Icon](https://github.com/adam-p/markdown-here/raw/master/src/commo
 
 - [Tika Server Documentation](https://cwiki.apache.org/confluence/display/TIKA/TikaServer)
 - [tika-python Documentation](https://github.com/chrismattmann/tika-python)
-- [Sample document metadata extracted using ApacheTika](data-samples/metadata-tika-sample.json)
-- [Elasticsearch REST calls](rest-calls/elasticsearch-rest.http)
+- [Sample document metadata extracted using ApacheTika](../data-samples/metadata-tika-sample.json)
+- [Elasticsearch REST calls](../rest-calls/elasticsearch-rest.http)
