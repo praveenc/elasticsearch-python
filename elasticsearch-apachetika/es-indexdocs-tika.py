@@ -32,7 +32,8 @@ def connect_elasticsearch(host="localhost", port="9200"):
 
 def create_index(es_object, index_name=INDEX_NAME):
     """
-    Create a strict index based on document metadata returned by tika.
+    Create a strict index mappings based on document metadata returned by tika.
+    Also create a custom analyzer with an edge_ngram filter
     Refer to metadata-tika-sample.json for sample metadata fields returned
 
     Arguments:
@@ -44,7 +45,26 @@ def create_index(es_object, index_name=INDEX_NAME):
     settings = {
         "settings": {
             "number_of_shards": 1,
-            "number_of_replicas": 0
+            "number_of_replicas": 0,
+            "analysis": {
+                "filter": {
+                    "autocomplete_filter": {
+                        "type": "edge_ngram",
+                        "min_gram": 1,
+                        "max_gram": 20
+                    }
+                },
+                "analyzer":{
+                    "autocomplete": {
+                        "type": "custom",
+                        "tokenizer": "standard",
+                        "filter": [
+                            "lowercase",
+                            "autocomplete_filter"
+                        ]
+                    }
+                }
+            }
         },
         "mappings": {
             "knowledge_docs": {
@@ -176,8 +196,12 @@ if __name__ == "__main__":
         create_index(es_conn)
     else:
         logging.info(f"Skipping Index creation... {INDEX_NAME} already exists")
-    logging.info(f"Scanning DIR: {DOC_PATH} ...")
-    full_names = get_documents(DOC_PATH)
+    if os.path.exists(DOC_PATH):
+        logging.info(f"Scanning DIR: {DOC_PATH} ...")
+        full_names = get_documents(DOC_PATH)
+    else:
+        logging.error(f"Path: {DOC_PATH} doesn't exist")
+        exit
 
     # Use ThreadPoolExecutor to index documents in parallel with 5 workers
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
