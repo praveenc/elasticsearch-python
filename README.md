@@ -10,6 +10,7 @@
 ## Installation, Configuration
 
 ---
+
 Note: ![Alert Icon](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon28.png "Alert") Instructions are for macos variants
 
 1. Install pre-requisites using [brew](https://brew.sh/) on MacOS
