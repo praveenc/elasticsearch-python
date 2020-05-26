@@ -1,0 +1,53 @@
+## Elasticsearch API Calls
+## Author: Praveen Chamarthi
+@hostname = localhost
+@port = 9200
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+@indexname = knowledgeindex
+
+### Check Cluster health
+# GET http://{{host}}/
+# Content-Type: {{contentType}}
+
+## Create Index
+# PUT http://{{host}}/{{indexname}}
+# Content-Type: {{contentType}}
+
+# {
+#     "settings" : { "number_of_shards" : 1 }
+# }
+
+
+### Get Indices
+GET http://localhost:9200/_cat/indices?v
+
+### Get Index
+GET http://{{host}}/{{indexname}}
+Content-Type: {{contentType}}
+
+### Get Index Mapping
+GET http://{{host}}/{{indexname}}/_mappings
+Content-Type: {{contentType}}
+
+
+### Search Index
+GET http://{{host}}/{{indexname}}/_search
+Content-Type: {{contentType}}
+
+{
+    "query" : {
+        "term" : { "title" : "primal" }
+    }
+}
+
+
+### Delete Index
+DELETE http://{{host}}/{{indexname}}
+
+
+### Queries
+@docType = "knowledge_docs"
+@queryText = "aurora"
+curl "http://localhost:9200/{{indexname}}/{{docType}}/_search?q={{queryText}}&_source=*title,*description&pretty"
