@@ -9,6 +9,7 @@ from elasticsearch import Elasticsearch
 """
 Use pytika from https://github.com/chrismattmann/tika-python to parse documents using tika server.
 Tika server can  be run as a docker image as described here: https://github.com/apache/tika-docker
+Author: Praveen Chamarthi
 """
 DOC_PATH='/path/to/documents/'
 TIKA_URL="http://localhost:9998/tika"

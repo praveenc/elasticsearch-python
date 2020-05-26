@@ -6,7 +6,9 @@ import logging
 import concurrent.futures
 from tika import parser, unpack
 from elasticsearch import Elasticsearch
-
+"""
+Author: Praveen Chamarthi
+"""
 INDEX_NAME="apachelogs"
 LOGS_PATH='/path/to/apache/logs/'
 
