@@ -8,7 +8,7 @@ from tika import parser, unpack
 from elasticsearch import Elasticsearch
 
 INDEX_NAME="apachelogs"
-LOGS_PATH='/Users/pchamart/Praveen/code/elasticsearch/'
+LOGS_PATH='/path/to/apache/logs/'
 
 def connect_elasticsearch(host="localhost", port="9200"):
     """ Function that returns a connection object. 
