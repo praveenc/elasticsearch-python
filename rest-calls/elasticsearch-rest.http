@@ -5,7 +5,6 @@
 @host = {{hostname}}:{{port}}
 @contentType = application/json
 @indexname = knowledgeindex
-@docType = "knowledge_docs"
 
 
 ### Get Indices
@@ -13,13 +12,24 @@ GET http://localhost:9200/_cat/indices?v
 
 ### Create Index
 ### Create Index , Add n-gram Analyzer to index
+PUT http://{{host}}/etaa
+Content-Type: {{contentType}}
+
+{
+    "settings": {
+        "number_of_shards": 1,
+        "number_of_replicas": 0
+    }
+}
+
+
 PUT http://{{host}}/{{indexname}}
 Content-Type: {{contentType}}
 
 {
     "settings": {
         "number_of_shards": 1,
-        "number_of_replicas": 0,
+        "number_of_replicas": 2,
         "analysis": {
             "filter": {
                 "autocomplete_filter": {
@@ -41,19 +51,16 @@ Content-Type: {{contentType}}
         }
     },
     "mappings": {
-        "knowledge_docs": {
-            "dynamic": "strict",
-            "properties": {
-                "title": {"type": "text" },
-                "description": {"type": "text" },
-                "author": {"type": "text" },
-                "creation_date": {"type": "date" },
-                "content_type": {"type": "text" },
-                "keywords": {"type": "text" },
-                "num_pages": {"type": "integer" },
-                "filename":  {"type": "text" },
-                "content":  {"type": "text" }
-            }
+        "properties": {
+            "title": {"type": "text" },
+            "description": {"type": "text" },
+            "author": {"type": "text" },
+            "creation_date": {"type": "date" },
+            "content_type": {"type": "text" },
+            "keywords": {"type": "text" },
+            "num_pages": {"type": "integer" },
+            "filename":  {"type": "text" },
+            "content":  {"type": "text" }
         }
     }
 }
@@ -84,4 +91,4 @@ DELETE http://{{host}}/{{indexname}}
 
 ### Queries
 @queryText = "aurora"
-curl "http://localhost:9200/{{indexname}}/{{docType}}/_search?q={{queryText}}&_source=*title,*description&pretty"
+curl "http://localhost:9200/{{indexname}}/_search?q={{queryText}}&_source=*title,*description&pretty"

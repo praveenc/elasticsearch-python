@@ -21,23 +21,26 @@ Note: ![Alert Icon](https://github.com/adam-p/markdown-here/raw/master/src/commo
 
 2. Start `elasticsearch` using `brew services start elasticsearch`
    1. If you'd wish to change elasticsearch config then it's available here `/usr/local/etc/elasticsearch/elasticsearch.yml`
-3. Pull [tika-docker](https://github.com/apache/tika-docker) image 
+
+3. For running ElasticSearch + Kibana using Docker refer to [dockerfiles](../dockerfiles)
+
+4. Pull [tika-docker](https://github.com/apache/tika-docker) image
 
    ```(shell)
    docker pull docker pull apache/tika:<tag>
    ```
 
-4. Run docker image `docker run -d -p 9998:9998 apache/tika`
+5. Run docker image `docker run -d -p 9998:9998 apache/tika`
    1. Test if tika server is up `curl http://localhost:9998/tika`
-5. Install and acitivate python3 virutal environment
+6. Install and acitivate python3 virutal environment
 
    ```(shell)
    python3 -m venv venv
    source venv/bin/activate
    ```
 
-6. Install pre-requisites to run [es-indexdocs-tika.py](es-indexdocs-tika.py) `pip install -r requirements.txt`
-7. run the script [es-indexdocs-tika.py](es-indexdocs-tika.py) `venv> python es-indexdocs-tika.py`
+7. Install pre-requisites to run [es-indexdocs-tika.py](es-indexdocs-tika.py) `pip install -r requirements.txt`
+8. run the script [es-indexdocs-tika.py](es-indexdocs-tika.py) `venv> python es-indexdocs-tika.py`
 
 ---
 
@@ -47,3 +50,4 @@ Note: ![Alert Icon](https://github.com/adam-p/markdown-here/raw/master/src/commo
 - [tika-python Documentation](https://github.com/chrismattmann/tika-python)
 - [Sample document metadata extracted using ApacheTika](../data-samples/metadata-tika-sample.json)
 - [Elasticsearch REST calls](../rest-calls/elasticsearch-rest.http)
+- [Dockerfiles](../dockerfiles)
